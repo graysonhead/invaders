@@ -17,7 +17,6 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        # DON'T FORGET TO PUT YOUR PACKAGE NAME HERE, REMOVING `throw`
         crateName = "invaders";
 
         inherit (import "${crate2nix}/tools.nix" { inherit pkgs; })
@@ -29,8 +28,8 @@
         }) {
           inherit pkgs;
           defaultCrateOverrides = pkgs.defaultCrateOverrides // {
-            invaders = _: {
-              buildInputs = [ pkgs.pkg-config ];
+            alsa-sys = _: {
+              nativeBuildInputs = [ pkgs.pkg-config pkgs.alsa-lib ];
             };
           };
         };
